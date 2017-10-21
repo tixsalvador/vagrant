@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
 	  config.vm.define "#{hostname}" do |box|
 	    box.vm.hostname = "#{hostname}"
 		box.vm.network :private_network, ip: "10.0.0.#{ip_start+i}", :netmask => "255.255.255.0"
-		if prefix == "controller"
+		if prefix == "controller" or prefix == "compute"
 		  box.vm.network "public_network"
 		end #if
 		
