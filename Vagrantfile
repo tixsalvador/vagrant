@@ -4,6 +4,7 @@
 nodes = {
  'controller' => [1,11],
  'compute' => [1,31],
+ 'chefserver' => [1,61],
  }
  
 Vagrant.configure("2") do |config|
@@ -18,8 +19,8 @@ Vagrant.configure("2") do |config|
 	  
 	  config.vm.define "#{hostname}" do |box|
 	    box.vm.hostname = "#{hostname}"
-		box.vm.network :private_network, ip: "10.0.0.#{ip_start+i}", :netmask => "255.255.255.0"
-		if prefix == "controller" or prefix == "compute"
+		box.vm.network :private_network, ip: "10.0.0.#{ip_start+i}", :netmask => "255.255.255.0", :gateway => "10.0.0.1"
+		if prefix == "controller" or prefix == "compute" or prefix == "chefserver"
 		  box.vm.network "public_network"
 		end #if
 		
@@ -28,12 +29,10 @@ Vagrant.configure("2") do |config|
 		  vb.customize ["modifyvm", :id, "--cpus", 1]
 		  vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
 		  vb.customize ["modifyvm", :id, "--nicpromisc4", "allow-all"]
-		  if prefix == "controller" or prefix == "compute"
+		  if prefix == "controller" 
 		    vb.customize ["modifyvm", :id, "--memory", 2048]
+			vb.customize ["modifyvm", :id, "--cpus", 2]
 		  end #if memory
-		  if prefix == "controller"
-		    vb.customize ["modifyvm", :id, "--cpus", 2]
-		  end #if cpu
 		end # box.vm.provider  
 	  end # config.vm.define
 	end # count.times
