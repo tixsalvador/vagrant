@@ -3,6 +3,7 @@
 
 nodes = {
  'controller' => [1,11],
+ 'compute' => [1,31],
  }
  
 Vagrant.configure("2") do |config|
@@ -35,4 +36,4 @@ Vagrant.configure("2") do |config|
 	  end # config.vm.define
 	end # count.times
   end #nodes.each
-end #Vagrant.configure  
+end #Vagrant.configure
