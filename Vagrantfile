@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
 		  vb.customize ["modifyvm", :id, "--cpus", 1]
 		  vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
 		  vb.customize ["modifyvm", :id, "--nicpromisc4", "allow-all"]
-		  if prefix == "controller" prefix == "compute"
+		  if prefix == "controller" or prefix == "compute"
 		    vb.customize ["modifyvm", :id, "--memory", 2048]
 		  end #if memory
 		  if prefix == "controller"
@@ -38,4 +38,4 @@ Vagrant.configure("2") do |config|
 	  end # config.vm.define
 	end # count.times
   end #nodes.each
-end #Vagrant.configure 
+end #Vagrant.configure  
