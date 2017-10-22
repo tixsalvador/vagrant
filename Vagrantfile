@@ -28,12 +28,14 @@ Vagrant.configure("2") do |config|
 		  vb.customize ["modifyvm", :id, "--cpus", 1]
 		  vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
 		  vb.customize ["modifyvm", :id, "--nicpromisc4", "allow-all"]
-		  if prefix == "controller"
+		  if prefix == "controller" prefix == "compute"
 		    vb.customize ["modifyvm", :id, "--memory", 2048]
-			vb.customize ["modifyvm", :id, "--cpus", 2]
-		  end #if
+		  end #if memory
+		  if prefix == "controller"
+		    vb.customize ["modifyvm", :id, "--cpus", 2]
+		  end #if cpu
 		end # box.vm.provider  
 	  end # config.vm.define
 	end # count.times
   end #nodes.each
-end #Vagrant.configure
+end #Vagrant.configure 
