@@ -4,7 +4,7 @@
 nodes = {
  'controller' => [1,11],
  'compute' => [1,31],
- 'chefserver' => [1,61],
+ 'controlmanager' => [1,61],
  }
  
 Vagrant.configure("2") do |config|
@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 	  config.vm.define "#{hostname}" do |box|
 	    box.vm.hostname = "#{hostname}"
 		box.vm.network :private_network, ip: "10.0.0.#{ip_start+i}", :netmask => "255.255.255.0", :gateway => "10.0.0.1"
-		if prefix == "controller" or prefix == "compute" or prefix == "chefserver"
+		if prefix == "controller" or prefix == "compute" or prefix == "controlmanager"
 		  box.vm.network "public_network"
 		end #if
 		
