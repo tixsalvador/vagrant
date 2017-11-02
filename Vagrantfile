@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+os = "centos"
+#os = "redhat"
+
 nodes = {
  'controller' => [1,11],
  'compute' => [1,31],
@@ -8,8 +11,13 @@ nodes = {
  }
  
 Vagrant.configure("2") do |config|
-  config.vm.box = "redhat74"
-  config.vm.box_url = "file:///d:/Users/edge/VirtualBox VMs\vagrant\boxes/redhat74.box"
+  if os == "centos"
+    config.vm.box = "centos-7"
+    config.vm.box_url = "file:///d:/Users/edge/boxes/centos7.box"
+  elsif os == "redhat"
+    config.vm.box = "redhat-7"
+    config.vm.box_url = "file:///d:/Users/edge/boxes/redhat74.box"
+  end #if os
   config.vm.synced_folder ".", "/vagrant", type: "nfs"
   config.vm.usable_port_range = 2800..2900  
   
