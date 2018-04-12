@@ -1,0 +1,12 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+  config.vm.network "private_network", ip: "192.168.56.4"
+  datadisk = './iscsitest2.vdi'
+  config.vm.provider "virtualbox" do |vb|
+    unless File.exist?(datadisk)
+      vb.customize ['createhd', '--filename', datadisk, '--variant', 'Fixed', '--size', 1 * 1024]
+	  vb.customize ['storagectl', :id, '--name', 'SATA Controller', '--add', 'sata', '--portcount', 4]
+    end
+	vb.customize ['storageattach', :id,  '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', datadisk]
+  end
+end
